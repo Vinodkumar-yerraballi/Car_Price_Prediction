@@ -6,12 +6,20 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import streamlit as st
 import base64
+from PIL import Image
+
+
+
+
+image1=Image.open('acura.jpeg')
+image2=Image.open('Audi.jpeg')
+image3=Image.open('BMW.jpeg')
 
 #set the title page
 st.set_page_config(
     page_title="Car Price Prediction",
-    layout="wide",
-    initial_sidebar_state="expanded"
+    layout="centered",
+    initial_sidebar_state="auto"
 )
 #set the background color
 def get_base64(bin_file):
@@ -25,7 +33,7 @@ def set_background(png_file):
     <style>
     .stApp {
     background-image: url("data:image/png;base64,%s");
-    background-size: cover;
+    background-size: 100 cover;
     }
     </style>
     ''' % bin_str
@@ -330,11 +338,20 @@ def main():
     Wheelbase=st.slider("Enter Wheelbase Ex:106.0",89.0,144.0)
     Length=st.slider("Enter Length Ex:189.0",143.0,238.0)
     if st.button("Predict"):
-        result=model.predict([[Make_1,np.array(Model), Type_1, Origin_1, DriveTrain_1,Invoice,
+      result=model.predict([[Make_1,np.array(Model), Type_1, Origin_1, DriveTrain_1,Invoice,
        EngineSize,Cylinders,Horsepower,MPG_City,MPG_Highway,
        Weight, Wheelbase,Length]])
-        st.success(f'The Car Price is  {result[0]:.2f}')
+      st.success(f'The Car Price is  {result[0]:.2f}')
+      st.balloons()
+      if Make == "Acura":
+        st.image(image1,caption="Acura Car Model ",width=1080)
+      elif Make == "Audi":
+        st.image(image2,caption="Audi Car Model ",width=1080)
+      elif Make == "BMW":
+        st.image(image3,caption="BMW Car Model ",width=1080)
 
+
+      
 
 
 if __name__ == "__main__":
