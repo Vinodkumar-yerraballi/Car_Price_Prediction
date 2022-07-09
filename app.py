@@ -30,7 +30,7 @@ def set_background(png_file):
     </style>
     ''' % bin_str
     st.markdown(page_bg_img, unsafe_allow_html=True)
-set_background('car.png')
+set_background('Lamborghini.png')
 data=st.sidebar.selectbox("The car model is show in the box",['MDX', 'RSX Type S 2dr', 'TSX 4dr', 'TL 4dr', '3.5 RL 4dr',
        '3.5 RL w/Navigation 4dr', 'NSX coupe 2dr manual S', 'A4 1.8T 4dr',
        'A41.8T convertible 2dr', 'A4 3.0 4dr',
