@@ -150,7 +150,6 @@ y=data['MSRP']
 linear=LinearRegression()
 linear.fit(X,y)
 #define the function
-@st.cache(persist=True, show_spinner=False)
 def main():
     Make=st.selectbox("Enter company brand",['Acura', 'Audi', 'BMW','Buick', 'Cadillac', 'Chevrolet',
        'Chrysler', 'Dodge', 'Ford', 'GMC', 'Honda', 'Hummer', 'Hyundai',
