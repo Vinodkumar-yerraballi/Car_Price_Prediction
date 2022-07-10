@@ -1,20 +1,57 @@
 #import standard libraries
+from cProfile import label
 import pickle
 import pandas as pd
 import numpy as np
+from matplotlib.figure import Figure
 import seaborn as sns
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import LabelEncoder
 import streamlit as st
 import base64
 from PIL import Image
 
-
+label=LabelEncoder()
 
 
 image1=Image.open('acura.jpeg')
 image2=Image.open('Audi.jpeg')
 image3=Image.open('BMW.jpeg')
-
+image4=Image.open('Buick.jpeg')
+image5=Image.open('Cadillac.jpeg')
+image6=Image.open('Chevrolet.jpeg')
+image7=Image.open('Chrysler.jpeg')
+image8=Image.open('Dodge.jpeg')
+image9=Image.open('Ford.jpeg')
+image10=Image.open('GMC.jpeg')
+image11=Image.open('Honda.jpeg')
+image12=Image.open('Hummer.jpeg')
+image13=Image.open('Hyundai.jpeg')
+image14=Image.open('Infiniti.jpeg')
+image15=Image.open('Isuzu.jpeg')
+image16=Image.open('Jaguar.jpg')
+image17=Image.open('Jeep.jpeg')
+image18=Image.open('Kia.jpeg')
+image19=Image.open('Land Rover.jpeg')
+image20=Image.open('Lexus.jpeg')
+image21=Image.open('Lincoln.jpeg')
+image22=Image.open('Mazda.jpeg')
+image23=Image.open('Mercedes-Benz.jpeg')
+image24=Image.open('Mercury.jpeg')
+image25=Image.open('MINI.jpeg')
+image26=Image.open('Mitsubishi.jpeg')
+image27=Image.open('Nissan.jpeg')
+image28=Image.open('Oldsmobile.jpeg')
+image29=Image.open('Pontiac.jpeg')
+image30=Image.open('Porsche.jpg')
+image31=Image.open('Saab.jpeg')
+image32=Image.open('Saturn.jpeg')
+image33=Image.open('Scion.jpeg')
+image34=Image.open('Subaru.jpeg')
+image35=Image.open('Suzuki.jpeg')
+image36=Image.open('Toyota.jpeg')
+image37=Image.open('Volkswagen.jpeg')
+image38=Image.open('Volvo.jpg')
 #set the title page
 st.set_page_config(
     page_title="Car Price Prediction",
@@ -39,7 +76,158 @@ def set_background(png_file):
     ''' % bin_str
     st.markdown(page_bg_img, unsafe_allow_html=True)
 set_background('Lamborghini.png')
-data=st.sidebar.selectbox("The car model is show in the box",['MDX', 'RSX Type S 2dr', 'TSX 4dr', 'TL 4dr', '3.5 RL 4dr',
+data=pd.read_csv('Car_data.csv')
+EDA=st.sidebar.selectbox("Explore Data Analysis",['EDA'])
+if st.sidebar.checkbox('EDA'):
+  make_type=data.groupby(['Make','Type']).size().reset_index().rename(columns={0:'diifernt_type_makes'})
+  st.set_option('deprecation.showPyplotGlobalUse', False)
+  ax=plt.axes()
+  ax.set(facecolor='skyblue')
+  sns.set(rc={'figure.figsize':(17,9)},style='darkgrid')
+  ax.set_title('different car brad have differnt types prices',fontsize=15,fontweight='bold')
+  sns.barplot(x='Make',y='diifernt_type_makes',hue='Type',data=make_type[:50],palette='rainbow')
+  plt.xlabel('Car Brands')
+  plt.ylabel('Count the cars')
+  plt.show()
+  st.pyplot()
+  make_origin=data.groupby(['Make','Origin']).size().reset_index().rename(columns={0:'diifernt_origin_makes'})
+  ax=plt.axes()
+  ax.set(facecolor='yellow')
+  sns.set(rc={'figure.figsize':(17,9)},style='darkgrid')
+  ax.set_title('different car brad with high sales rate in differnt origin',fontsize=15,fontweight='bold')
+  sns.barplot(x='Make',y='diifernt_origin_makes',hue='Origin',data=make_origin[:50],palette='rainbow')
+  plt.xticks(rotation=45)
+  plt.xlabel('Car Brands')
+  plt.ylabel('Count the cars')
+  plt.show()
+  st.pyplot()
+  make_driveTrain=data.groupby(['Make','DriveTrain']).size().reset_index().rename(columns={0:'diifernt_make_driveTrain'})
+  ax=plt.axes()
+  ax.set(facecolor='orange')
+  sns.set(rc={'figure.figsize':(17,9)},style='darkgrid')
+  ax.set_title('different car brad with different drivtrains ',fontsize=25,fontweight='bold')
+  sns.barplot(x='Make',y='diifernt_make_driveTrain',hue='DriveTrain',data=make_driveTrain[:50],palette=['black','red','green'])
+  plt.xticks(rotation=45)
+  plt.xlabel('Car Brands')
+  plt.ylabel('Count the cars')
+  plt.show()
+  st.pyplot()
+  st.write("The distribution of the MSRP")
+  ax=plt.axes()
+  ax.set(facecolor='grey')
+  sns.set(rc={'figure.figsize':(17,9)},style='darkgrid')
+  ax.set_title('Distribution of the car price in $ ',fontsize=25,fontweight='bold')
+  sns.distplot(data['MSRP'])
+  plt.xticks(rotation=45)
+  plt.xlabel('Car price')
+  plt.ylabel('Count of the values')
+  plt.show()
+  st.pyplot()
+  st.write("The distribution of the Invoice")
+  ax=plt.axes()
+  ax.set(facecolor='red')
+  sns.set(rc={'figure.figsize':(17,9)},style='darkgrid')
+  ax.set_title('Distribution of the car invoice in $ ',fontsize=25,fontweight='bold')
+  sns.distplot(data['Invoice'],color='black',hist=True)
+  plt.xticks(rotation=45)
+  plt.xlabel('Car invoice')
+  plt.ylabel('Count of the values')
+  plt.show()
+  st.pyplot()
+#Read the data
+model=pickle.load(open('Car_price_prediction.pkl','rb'))
+
+#define the function
+def main():
+    Make=st.selectbox("Enter company brand",['Acura', 'Audi', 'BMW','Buick', 'Cadillac', 'Chevrolet',
+       'Chrysler', 'Dodge', 'Ford', 'GMC', 'Honda', 'Hummer', 'Hyundai',
+       'Infiniti', 'Isuzu', 'Jaguar', 'Jeep', 'Kia', 'Land Rover',
+       'Lexus', 'Lincoln', 'MINI', 'Mazda', 'Mercedes-Benz', 'Mercury',
+       'Mitsubishi', 'Nissan', 'Oldsmobile', 'Pontiac', 'Porsche', 'Saab',
+       'Saturn', 'Scion', 'Subaru', 'Suzuki', 'Toyota', 'Volkswagen',
+       'Volvo'])
+    if Make == "Acura":
+      Make_1 = 0
+    elif Make == "Audi":
+      Make_1 = 1
+    elif Make == "BMW":
+      Make_1 = 2
+    elif Make == "Buick":
+      Make_1 = 3
+    elif Make == "Cadillac":
+      Make_1 = 4
+    elif Make == "Chevrolet":
+      Make_1 = 5
+    elif Make == "Chrysler":
+      Make_1 = 6
+    elif Make == "Dodge":
+      Make_1 = 7
+    elif Make == "Ford":
+      Make_1 = 8
+    elif Make == "GMC":
+      Make_1 = 9
+    elif Make == "Honda":
+      Make_1 = 10
+    elif Make == "Hummer":
+      Make_1 = 11
+    elif Make == "Hyundai":
+      Make_1 = 12
+    elif Make == "Infiniti":
+      Make_1 = 13
+    elif Make == "Isuzu":
+      Make_1 = 14
+    elif Make == "Jaguar":
+      Make_1 = 15
+    elif Make == "Jeep":
+      Make_1 = 16
+    elif Make == "Kia":
+      Make_1 = 17
+    elif Make == "Land Rover":
+      Make_1 = 18
+    elif Make == "Lexus":
+      Make_1 = 19
+    elif Make == "Lincoln":
+      Make_1 = 20
+    elif Make == "MINI":
+      Make_1 = 21
+    elif Make == "Mazda":
+      Make_1 = 22
+    elif Make == "Mercedes-Benz":
+      Make_1 = 23
+    elif Make == "Mercury":
+      Make_1 = 24
+    elif Make == "Mitsubishi":
+      Make_1 = 25
+    elif Make == "Nissan":
+      Make_1 = 26
+    elif Make == "Oldsmobile":
+      Make_1 = 27
+    elif Make == "Pontiac":
+      Make_1 = 28
+    elif Make == "Porsche":
+      Make_1 = 29
+    elif Make == "Saab":
+      Make_1 = 30
+    elif Make == "Saturn":
+      Make_1 = 31
+    elif Make == "Saturn":
+      Make_1 = 31
+    elif Make == "Saturn":
+      Make_1 = 31
+    elif Make == "Scion":
+      Make_1 = 32
+    elif Make == "Subaru":
+      Make_1 = 33
+    elif Make == "Suzuki":
+      Make_1 = 34
+    elif Make == "Toyota":
+      Make_1 = 35
+    elif Make == "Volkswagen":
+      Make_1 = 36
+    elif Make == "Volvo":
+      Make_1 = 37
+    #model
+    Model=st.selectbox(" ",['MDX', 'RSX Type S 2dr', 'TSX 4dr', 'TL 4dr', '3.5 RL 4dr',
        '3.5 RL w/Navigation 4dr', 'NSX coupe 2dr manual S', 'A4 1.8T 4dr',
        'A41.8T convertible 2dr', 'A4 3.0 4dr',
        'A4 3.0 Quattro 4dr manual', 'A4 3.0 Quattro 4dr auto',
@@ -50,7 +238,7 @@ data=st.sidebar.selectbox("The car model is show in the box",['MDX', 'RSX Type S
        'TT 1.8 Quattro 2dr (convertible)',
        'TT 3.2 coupe 2dr (convertible)', 'A6 3.0 Avant Quattro',
        'S4 Avant Quattro', 'X3 3.0i', 'X5 4.4i', '325i 4dr', '325Ci 2dr',
-       '325Ci convertible 2dr', '325xi 4dr', '330i 4dr', '330Ci 2dr',
+        '325Ci convertible 2dr', '325xi 4dr', '330i 4dr', '330Ci 2dr',
        '330xi 4dr', '525i 4dr', '330Ci convertible 2dr', '530i 4dr',
        '545iA 4dr', '745i 4dr', '745Li 4dr', 'M3 coupe 2dr',
        'M3 convertible 2dr', 'Z4 convertible 2.5i 2dr',
@@ -175,132 +363,7 @@ data=st.sidebar.selectbox("The car model is show in the box",['MDX', 'RSX Type S
        'S60 2.5 4dr', 'S60 T5 4dr', 'S60 R 4dr', 'S80 2.9 4dr',
        'S80 2.5T 4dr', 'C70 LPT convertible 2dr',
        'C70 HPT convertible 2dr', 'S80 T6 4dr', 'V40', 'XC70'])
-#Read the data
-model=pickle.load(open('Car_price_prediction.pkl','rb'))
-
-#define the function
-def main():
-    Make=st.selectbox("Enter company brand",['Acura', 'Audi', 'BMW','Buick', 'Cadillac', 'Chevrolet',
-       'Chrysler', 'Dodge', 'Ford', 'GMC', 'Honda', 'Hummer', 'Hyundai',
-       'Infiniti', 'Isuzu', 'Jaguar', 'Jeep', 'Kia', 'Land Rover',
-       'Lexus', 'Lincoln', 'MINI', 'Mazda', 'Mercedes-Benz', 'Mercury',
-       'Mitsubishi', 'Nissan', 'Oldsmobile', 'Pontiac', 'Porsche', 'Saab',
-       'Saturn', 'Scion', 'Subaru', 'Suzuki', 'Toyota', 'Volkswagen',
-       'Volvo'])
-    if Make == "Acura":
-      Make_1 = 0
-    elif Make == "Audi":
-      Make_1 = 1
-    elif Make == "BMW":
-      Make_1 = 2
-    elif Make == "Buick":
-      Make_1 = 3
-    elif Make == "Cadillac":
-      Make_1 = 4
-    elif Make == "Chevrolet":
-      Make_1 = 5
-    elif Make == "Chrysler":
-      Make_1 = 6
-    elif Make == "Dodge":
-      Make_1 = 7
-    elif Make == "Ford":
-      Make_1 = 8
-    elif Make == "GMC":
-      Make_1 = 9
-    elif Make == "Honda":
-      Make_1 = 10
-    elif Make == "Hummer":
-      Make_1 = 11
-    elif Make == "Hyundai":
-      Make_1 = 12
-    elif Make == "Infiniti":
-      Make_1 = 13
-    elif Make == "Isuzu":
-      Make_1 = 14
-    elif Make == "Jaguar":
-      Make_1 = 15
-    elif Make == "Jeep":
-      Make_1 = 16
-    elif Make == "Kia":
-      Make_1 = 17
-    elif Make == "Land Rover":
-      Make_1 = 18
-    elif Make == "Lexus":
-      Make_1 = 19
-    elif Make == "Lincoln":
-      Make_1 = 20
-    elif Make == "MINI":
-      Make_1 = 21
-    elif Make == "Mazda":
-      Make_1 = 22
-    elif Make == "Mercedes-Benz":
-      Make_1 = 23
-    elif Make == "Mercury":
-      Make_1 = 24
-    elif Make == "Mitsubishi":
-      Make_1 = 25
-    elif Make == "Nissan":
-      Make_1 = 26
-    elif Make == "Oldsmobile":
-      Make_1 = 27
-    elif Make == "Pontiac":
-      Make_1 = 28
-    elif Make == "Porsche":
-      Make_1 = 29
-    elif Make == "Saab":
-      Make_1 = 30
-    elif Make == "Saturn":
-      Make_1 = 31
-    elif Make == "Saturn":
-      Make_1 = 31
-    elif Make == "Saturn":
-      Make_1 = 31
-    elif Make == "Scion":
-      Make_1 = 32
-    elif Make == "Subaru":
-      Make_1 = 33
-    elif Make == "Suzuki":
-      Make_1 = 34
-    elif Make == "Toyota":
-      Make_1 = 35
-    elif Make == "Volkswagen":
-      Make_1 = 36
-    elif Make == "Volvo":
-      Make_1 = 37
-    #model
-    Model=st.selectbox("The car model data covert into the labelencoder to see the original car models in the sidebar",[229, 293, 364, 363,   0,   1, 256,  32,  38,  33,  35,  34,  40,
-        42,  37,  36,  39,  43,  44, 311, 292, 366, 365, 367,  41, 310,
-       398, 399,   6,   4,   5,   7,  11,   9,  12,  16,  10,  17,  18,
-        20,  19, 227, 226, 415, 416,   8, 295, 301, 103, 221, 300, 299,
-       222, 275, 276, 147, 327,  89, 126, 127, 343, 411, 148, 360, 369,
-       383, 382,  65,  66,  98,  99, 100, 194, 235, 236, 248, 195, 196,
-       237, 249,  61, 390, 118, 119,  62, 110, 349, 350, 328, 238, 271,
-       273, 334, 336,   2, 111, 112, 272, 337,   3, 335, 380, 381, 120,
-       274, 130, 258, 259, 202, 359, 358, 201,  97, 181, 393, 125, 124,
-       296, 150, 151, 152, 149, 161, 157, 158, 162, 159, 370, 372, 121,
-       122, 123, 167, 254, 255, 373, 153, 154, 298, 160, 371, 146, 413,
-       414, 332,  96, 346, 347, 353, 107, 200, 286,  88, 144, 104, 106,
-       108,  50,  48, 105, 109,  51,  49, 263, 262, 309, 188, 333,  45,
-        46,  47, 141, 142, 143, 351, 352, 402, 403, 374, 169, 170, 190,
-       228, 288, 155, 156,  60, 305, 396, 397, 306, 307, 308, 389, 404,
-       405, 407, 406, 409, 408, 182, 225, 395, 354, 264, 303, 302, 355,
-       356, 357, 265,  59, 338, 304, 297, 129, 166, 176, 214, 294, 135,
-       192, 191, 172, 173, 209, 321, 193, 257,  67, 210, 211, 212, 213,
-       377, 378, 379, 113, 114, 384, 243, 244, 245, 231, 234, 233,  69,
-        70, 171, 230,  75,  80,  77,  81,  79,  78,  84,  85,  86,  87,
-       132, 134, 313, 314, 322, 323, 324, 325, 326,  76, 131, 133, 252,
-       330, 183, 184, 331, 185, 239, 250, 329, 145, 251, 270, 215, 217,
-       177, 218, 128, 178, 139, 140, 216, 219, 282, 283, 412, 339, 340,
-        57, 341,  58, 241, 242, 289, 290,  14,  13, 168, 375, 253,  56,
-        55, 348,  68, 361, 180, 186, 362, 187,  72, 246, 247, 175, 392,
-       101,  29,  28,  31,  30,  74,  73,  23,  21,  27,  26,  24,  22,
-        25, 388, 203, 417, 419, 418, 420, 208, 207, 421, 422, 197, 224,
-       223, 269, 268, 267, 198, 199,  71, 165, 266, 410, 394,  52,  53,
-       164, 163, 391,  54, 287, 342,  15, 189, 220, 291, 115, 117, 116,
-       137, 136, 138,  90,  91,  92,  93,  63,  95,  94,  64, 344, 345,
-       102, 232, 368, 386, 385, 240, 376, 179, 174, 206, 260, 205, 261,
-       278, 279, 281, 284, 285, 204, 277, 280, 401, 312, 315, 317, 316,
-       319, 318,  83,  82, 320, 387, 400])
+    
     Type=st.selectbox("Enter Car type ",['SUV', 'Sedan', 'Sports', 'Wagon','Truck', 'Hybrid'])
     if Type == "SUV":
       Type_1 = 0
@@ -338,17 +401,90 @@ def main():
     Wheelbase=st.slider("Enter Wheelbase Ex:106.0",89.0,144.0)
     Length=st.slider("Enter Length Ex:189.0",143.0,238.0)
     if st.button("Predict"):
+      Model=label.fit_transform([Model])
       result=model.predict([[Make_1,np.array(Model), Type_1, Origin_1, DriveTrain_1,Invoice,
        EngineSize,Cylinders,Horsepower,MPG_City,MPG_Highway,
        Weight, Wheelbase,Length]])
       st.success(f'The Car Price is  {result[0]:.2f}')
       st.balloons()
       if Make == "Acura":
-        st.image(image1,caption="Acura Car Model ",width=1080)
+        st.image(image1,caption="Acura Car Model ",width=1000)
       elif Make == "Audi":
-        st.image(image2,caption="Audi Car Model ",width=1080)
+        st.image(image2,caption="Audi Car Model ",width=1000)
       elif Make == "BMW":
-        st.image(image3,caption="BMW Car Model ",width=1080)
+        st.image(image3,caption="BMW Car Model ",width=1000)
+      elif Make == "Buick":
+        st.image(image4,caption="Buick Car Model ",width=1000)
+      elif Make == "Cadillac":
+        st.image(image5,caption="Cadillac Car Model ",width=1000)
+      elif Make == "Chevrolet":
+        st.image(image6,caption="Chevrolet Car Model ",width=1000)
+      elif Make == "Chrysler":
+        st.image(image7,caption="Chrysler Car Model ",width=1000)
+      elif Make == "Dodge":
+        st.image(image8,caption="Dodge Car Model ",width=1000)
+      elif Make == "Ford":
+        st.image(image9,caption="Ford Car Model ",width=1000)
+      elif Make == "GMC":
+        st.image(image10,caption="GMC Car Model ",width=1000)
+      elif Make == "Honda":
+        st.image(image11,caption="Honda Car Model ",width=1000)
+      elif Make == "Hummer":
+        st.image(image12,caption="Hummer Car Model ",width=1000)
+      elif Make == "Hyundai":
+        st.image(image13,caption="Hyundai Car Model ",width=1000)
+      elif Make == "Infiniti":
+        st.image(image14,caption="Infiniti Car Model ",width=1000)
+      elif Make == "Isuzu":
+        st.image(image15,caption="Isuzu Car Model ",width=1000)
+      elif Make == "Jaguar":
+        st.image(image16,caption="Jaguar Car Model ",width=1000)
+      elif Make == "Jeep":
+        st.image(image17,caption="Jeep Car Model ",width=1000)
+      elif Make == "Kia":
+        st.image(image18,caption="Kia Car Model ",width=1000)
+      elif Make == "Land Rover":
+         st.image(image19,caption="Land Rover Car Model ",width=1000)
+      elif Make == "Lexus":
+         st.image(image20,caption="Lexus Car Model ",width=1000)
+      elif Make == "Lincoln":
+          st.image(image21,caption="Lincoln Car Model ",width=1000)
+      elif Make == "MINI":
+        st.image(image22,caption="MINI Car Model ",width=1000)
+      elif Make == "Mazda":
+        st.image(image23,caption="Mazda Car Model ",width=1000)
+      elif Make == "Mercedes-Benz":
+        st.image(image24,caption="Mercedes-Benz Car Model ",width=1000)
+      elif Make == "Mercury":
+        st.image(image25,caption="Mercury Car Model ",width=1000)
+      elif Make == "Mitsubishi":
+        st.image(image26,caption="Mitsubishi Car Model ",width=1000)
+      elif Make == "Nissan":
+        st.image(image27,caption="Nissan Car Model ",width=1000)
+      elif Make == "Oldsmobile":
+        st.image(image28,caption="Oldsmobile Car Model ",width=1000)
+      elif Make == "Pontiac":
+         st.image(image29,caption="Pontiac Car Model ",width=1000)
+      elif Make == "Porsche":
+        st.image(image30,caption="Porsche Car Model ",width=1000)
+      elif Make == "Saab":
+        st.image(image31,caption="Saab Car Model ",width=1000)
+      elif Make == "Saturn":
+        st.image(image32,caption="Saturn Car Model ",width=1000)
+      
+      elif Make == "Scion":
+        st.image(image33,caption="Scion Car Model ",width=1000)
+      elif Make == "Subaru":
+        st.image(image34,caption="Subaru Car Model ",width=1000)
+      elif Make == "Suzuki":
+        st.image(image35,caption="Suzuki Car Model ",width=1000)
+      elif Make == "Toyota":
+        st.image(image36,caption="Toyota Car Model ",width=1000)
+      elif Make == "Volkswagen":
+        st.image(image37,caption="Volkswagen Car Model ",width=1000)
+      elif Make == "Volvo":
+        st.image(image38,caption="Volvo Car Model ",width=1000)
+       
 
 
       
