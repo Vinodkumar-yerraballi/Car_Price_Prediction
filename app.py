@@ -14,7 +14,7 @@ from sklearn.linear_model import LinearRegression
 
 label=LabelEncoder()
 
-@st.cache
+
 image1=Image.open('Acura.jpeg')
 image2=Image.open('Audi.jpeg')
 image3=Image.open('BMW.jpeg')
