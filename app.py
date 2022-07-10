@@ -136,7 +136,7 @@ if st.sidebar.checkbox('EDA'):
   plt.show()
   st.pyplot()
 #Read the data
-model=pickle.load(open('Car_price_prediction.pkl','rb'))
+
 data=data.drop(['Unnamed: 0'],axis=1)
 data['Model']=LabelEncoder().fit_transform(data['Model'])
 data['Make']=LabelEncoder().fit_transform(data['Make'])
@@ -412,10 +412,7 @@ def main():
     Length=st.slider("Enter Length Ex:189.0",143.0,238.0)
     if st.button("Predict"):
       Model=label.fit_transform([Model])
-      Make_1=label.fit_transform([Make_1])
-      Type_1=label.fit_transform([Type_1])
-      Origin_1=label.fit_transform([Origin_1])
-      DriveTrain_1=label.fit_transform([DriveTrain_1])
+      
       result=linear.predict([[Make_1,Model, Type_1, Origin_1, DriveTrain_1,Invoice,
        EngineSize,Cylinders,Horsepower,MPG_City,MPG_Highway,
        Weight, Wheelbase,Length]])
