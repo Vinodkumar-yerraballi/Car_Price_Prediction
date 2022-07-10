@@ -10,6 +10,7 @@ from sklearn.preprocessing import LabelEncoder
 import streamlit as st
 import base64
 from PIL import Image
+from sklearn.linear_model import LinearRegression
 
 label=LabelEncoder()
 
@@ -136,7 +137,16 @@ if st.sidebar.checkbox('EDA'):
   st.pyplot()
 #Read the data
 model=pickle.load(open('Car_price_prediction.pkl','rb'))
-
+data=data.drop(['Unnamed: 0'],axis=1)
+data['Model']=LabelEncoder().fit_transform(data['Model'])
+data['Make']=LabelEncoder().fit_transform(data['Make'])
+data['Type']=LabelEncoder().fit_transform(data['Type'])
+data['Origin']=LabelEncoder().fit_transform(data['Origin'])
+data['DriveTrain']=LabelEncoder().fit_transform(data['DriveTrain'])
+X=data.drop(['MSRP'],axis=1)
+y=data['MSRP']
+linear=LinearRegression()
+linear.fit(X,y)
 #define the function
 def main():
     Make=st.selectbox("Enter company brand",['Acura', 'Audi', 'BMW','Buick', 'Cadillac', 'Chevrolet',
@@ -402,7 +412,11 @@ def main():
     Length=st.slider("Enter Length Ex:189.0",143.0,238.0)
     if st.button("Predict"):
       Model=label.fit_transform([Model])
-      result=model.predict([[Make_1,np.array(Model), Type_1, Origin_1, DriveTrain_1,Invoice,
+      Make_1=label.fit_transform([Make_1])
+      Type_1=label.fit_transform([Type_1])
+      Origin_1=label.fit_transform([Origin_1])
+      DriveTrain_1=label.fit_transform([DriveTrain_1])
+      result=linear.predict([[Make_1,Model, Type_1, Origin_1, DriveTrain_1,Invoice,
        EngineSize,Cylinders,Horsepower,MPG_City,MPG_Highway,
        Weight, Wheelbase,Length]])
       st.success(f'The Car Price is  {result[0]:.2f}')
