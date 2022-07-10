@@ -417,7 +417,7 @@ def main():
        EngineSize,Cylinders,Horsepower,MPG_City,MPG_Highway,
        Weight, Wheelbase,Length]])
       
-      st.success(list(map('The Car Price is {:.2f}'.format,result)))
+      st.success(f'The Car Price is  {result[0]:.2f}')
 
       st.balloons()
       if Make == "Acura":
