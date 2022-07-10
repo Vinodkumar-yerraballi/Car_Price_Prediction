@@ -416,7 +416,9 @@ def main():
       result=linear.predict([[Make_1,Model, Type_1, Origin_1, DriveTrain_1,Invoice,
        EngineSize,Cylinders,Horsepower,MPG_City,MPG_Highway,
        Weight, Wheelbase,Length]])
-      st.success(print(result)
+      result=np.array(result)
+      st.success(f'The Car Price is  {result[0]:.2f}')
+
       st.balloons()
       if Make == "Acura":
         st.image(image1,caption="Acura Car Model ",width=1000)
