@@ -60,6 +60,7 @@ st.set_page_config(
     initial_sidebar_state="auto"
 )
 #set the background color
+@st.cache(persist=True, show_spinner=False)
 def get_base64(bin_file):
     with open(bin_file, 'rb') as f:
         data = f.read()
@@ -77,6 +78,7 @@ def set_background(png_file):
     ''' % bin_str
     st.markdown(page_bg_img, unsafe_allow_html=True)
 set_background('Lamborghini.png')
+@st.cache(persist=True, show_spinner=False)
 data=pd.read_csv('Car_data.csv')
 EDA=st.sidebar.selectbox("Explore Data Analysis",['EDA'])
 if st.sidebar.checkbox('EDA'):
@@ -148,6 +150,7 @@ y=data['MSRP']
 linear=LinearRegression()
 linear.fit(X,y)
 #define the function
+@st.cache(persist=True, show_spinner=False)
 def main():
     Make=st.selectbox("Enter company brand",['Acura', 'Audi', 'BMW','Buick', 'Cadillac', 'Chevrolet',
        'Chrysler', 'Dodge', 'Ford', 'GMC', 'Honda', 'Hummer', 'Hyundai',
@@ -410,6 +413,7 @@ def main():
     Weight=st.slider("Enter Weight Ex:4451.0",1850.0,7190.0)
     Wheelbase=st.slider("Enter Wheelbase Ex:106.0",89.0,144.0)
     Length=st.slider("Enter Length Ex:189.0",143.0,238.0)
+    @st.cache(persist=True, show_spinner=False)
     if st.button("Predict"):
       Model=label.fit_transform([Model])
       
