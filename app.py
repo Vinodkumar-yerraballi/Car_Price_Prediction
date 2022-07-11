@@ -424,82 +424,82 @@ def main():
 
       st.balloons()
       if Make == "Acura":
-        st.image(image1,caption="Acura Car Model ",width=1000)
+        st.image(image1,caption="Acura Car Model ",width=700)
       elif Make == "Audi":
-        st.image(image2,caption="Audi Car Model ",width=1000)
+        st.image(image2,caption="Audi Car Model ",width=700)
       elif Make == "BMW":
-        st.image(image3,caption="BMW Car Model ",width=1000)
+        st.image(image3,caption="BMW Car Model ",width=700)
       elif Make == "Buick":
-        st.image(image4,caption="Buick Car Model ",width=1000)
+        st.image(image4,caption="Buick Car Model ",width=700)
       elif Make == "Cadillac":
-        st.image(image5,caption="Cadillac Car Model ",width=1000)
+        st.image(image5,caption="Cadillac Car Model ",width=700)
       elif Make == "Chevrolet":
-        st.image(image6,caption="Chevrolet Car Model ",width=1000)
+        st.image(image6,caption="Chevrolet Car Model ",width=700)
       elif Make == "Chrysler":
-        st.image(image7,caption="Chrysler Car Model ",width=1000)
+        st.image(image7,caption="Chrysler Car Model ",width=700)
       elif Make == "Dodge":
-        st.image(image8,caption="Dodge Car Model ",width=1000)
+        st.image(image8,caption="Dodge Car Model ",width=700)
       elif Make == "Ford":
-        st.image(image9,caption="Ford Car Model ",width=1000)
+        st.image(image9,caption="Ford Car Model ",width=700)
       elif Make == "GMC":
-        st.image(image10,caption="GMC Car Model ",width=1000)
+        st.image(image10,caption="GMC Car Model ",width=700)
       elif Make == "Honda":
-        st.image(image11,caption="Honda Car Model ",width=1000)
+        st.image(image11,caption="Honda Car Model ",width=700)
       elif Make == "Hummer":
-        st.image(image12,caption="Hummer Car Model ",width=1000)
+        st.image(image12,caption="Hummer Car Model ",width=700)
       elif Make == "Hyundai":
-        st.image(image13,caption="Hyundai Car Model ",width=1000)
+        st.image(image13,caption="Hyundai Car Model ",width=700)
       elif Make == "Infiniti":
-        st.image(image14,caption="Infiniti Car Model ",width=1000)
+        st.image(image14,caption="Infiniti Car Model ",width=700)
       elif Make == "Isuzu":
-        st.image(image15,caption="Isuzu Car Model ",width=1000)
+        st.image(image15,caption="Isuzu Car Model ",width=700)
       elif Make == "Jaguar":
-        st.image(image16,caption="Jaguar Car Model ",width=1000)
+        st.image(image16,caption="Jaguar Car Model ",width=700)
       elif Make == "Jeep":
-        st.image(image17,caption="Jeep Car Model ",width=1000)
+        st.image(image17,caption="Jeep Car Model ",width=700)
       elif Make == "Kia":
-        st.image(image18,caption="Kia Car Model ",width=1000)
+        st.image(image18,caption="Kia Car Model ",width=700)
       elif Make == "Land Rover":
-         st.image(image19,caption="Land Rover Car Model ",width=1000)
+         st.image(image19,caption="Land Rover Car Model ",width=700)
       elif Make == "Lexus":
-         st.image(image20,caption="Lexus Car Model ",width=1000)
+         st.image(image20,caption="Lexus Car Model ",width=700)
       elif Make == "Lincoln":
-          st.image(image21,caption="Lincoln Car Model ",width=1000)
+          st.image(image21,caption="Lincoln Car Model ",width=700)
       elif Make == "MINI":
-        st.image(image22,caption="MINI Car Model ",width=1000)
+        st.image(image22,caption="MINI Car Model ",width=700)
       elif Make == "Mazda":
-        st.image(image23,caption="Mazda Car Model ",width=1000)
+        st.image(image23,caption="Mazda Car Model ",width=700)
       elif Make == "Mercedes-Benz":
-        st.image(image24,caption="Mercedes-Benz Car Model ",width=1000)
+        st.image(image24,caption="Mercedes-Benz Car Model ",width=700)
       elif Make == "Mercury":
-        st.image(image25,caption="Mercury Car Model ",width=1000)
+        st.image(image25,caption="Mercury Car Model ",width=700)
       elif Make == "Mitsubishi":
-        st.image(image26,caption="Mitsubishi Car Model ",width=1000)
+        st.image(image26,caption="Mitsubishi Car Model ",width=700)
       elif Make == "Nissan":
-        st.image(image27,caption="Nissan Car Model ",width=1000)
+        st.image(image27,caption="Nissan Car Model ",width=700)
       elif Make == "Oldsmobile":
-        st.image(image28,caption="Oldsmobile Car Model ",width=1000)
+        st.image(image28,caption="Oldsmobile Car Model ",width=700)
       elif Make == "Pontiac":
-         st.image(image29,caption="Pontiac Car Model ",width=1000)
+         st.image(image29,caption="Pontiac Car Model ",width=700)
       elif Make == "Porsche":
-        st.image(image30,caption="Porsche Car Model ",width=1000)
+        st.image(image30,caption="Porsche Car Model ",width=700)
       elif Make == "Saab":
-        st.image(image31,caption="Saab Car Model ",width=1000)
+        st.image(image31,caption="Saab Car Model ",width=700)
       elif Make == "Saturn":
-        st.image(image32,caption="Saturn Car Model ",width=1000)
+        st.image(image32,caption="Saturn Car Model ",width=700)
       
       elif Make == "Scion":
-        st.image(image33,caption="Scion Car Model ",width=1000)
+        st.image(image33,caption="Scion Car Model ",width=700)
       elif Make == "Subaru":
-        st.image(image34,caption="Subaru Car Model ",width=1000)
+        st.image(image34,caption="Subaru Car Model ",width=700)
       elif Make == "Suzuki":
-        st.image(image35,caption="Suzuki Car Model ",width=1000)
+        st.image(image35,caption="Suzuki Car Model ",width=700)
       elif Make == "Toyota":
-        st.image(image36,caption="Toyota Car Model ",width=1000)
+        st.image(image36,caption="Toyota Car Model ",width=700)
       elif Make == "Volkswagen":
-        st.image(image37,caption="Volkswagen Car Model ",width=1000)
+        st.image(image37,caption="Volkswagen Car Model ",width=700)
       elif Make == "Volvo":
-        st.image(image38,caption="Volvo Car Model ",width=1000)
+        st.image(image38,caption="Volvo Car Model ",width=700)
        
 
 
